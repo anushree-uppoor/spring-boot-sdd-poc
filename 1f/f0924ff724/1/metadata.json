@@ -1,9 +1,11 @@
 {
   "cli_version": "0.5.0",
   "checkpoint_id": "1ff0924ff724",
+  "session_id": "b591661f-9892-4665-8abb-3c69cda872bc",
   "strategy": "manual-commit",
+  "created_at": "2026-03-22T18:17:17.078681Z",
   "branch": "001-tm-1-create-task",
-  "checkpoints_count": 8,
+  "checkpoints_count": 7,
   "files_touched": [
     ".cursor/rules/specify-rules.mdc",
     ".gitignore",
@@ -40,18 +42,21 @@
     "src/test/java/com/example/tasktracker/service/TaskServiceTest.java",
     "src/test/java/com/sdd/poc/PocApplicationTests.java"
   ],
-  "sessions": [
-    {
-      "metadata": "/1f/f0924ff724/0/metadata.json",
-      "transcript": "/1f/f0924ff724/0/full.jsonl",
-      "content_hash": "/1f/f0924ff724/0/content_hash.txt",
-      "prompt": "/1f/f0924ff724/0/prompt.txt"
-    },
-    {
-      "metadata": "/1f/f0924ff724/1/metadata.json",
-      "transcript": "/1f/f0924ff724/1/full.jsonl",
-      "content_hash": "/1f/f0924ff724/1/content_hash.txt",
-      "prompt": "/1f/f0924ff724/1/prompt.txt"
-    }
-  ]
+  "agent": "Cursor",
+  "model": "default",
+  "turn_id": "2d80c313cb6e",
+  "checkpoint_transcript_start": 5,
+  "transcript_lines_at_start": 5,
+  "session_metrics": {
+    "turn_count": 8
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-22T18:17:17.031377Z",
+    "agent_lines": 1536,
+    "human_added": 7,
+    "human_modified": 16,
+    "human_removed": 0,
+    "total_committed": 1559,
+    "agent_percentage": 98.52469531751123
+  }
 }

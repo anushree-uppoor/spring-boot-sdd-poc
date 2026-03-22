@@ -1,0 +1,29 @@
+/sp.specify --name TM-1-Create-Task --jira TM-1
+
+---
+
+/sp.plan
+
+---
+
+/sp.tasks
+
+---
+
+/sp.implement
+
+---
+
+/sp.review
+
+---
+
+/sp.review
+
+---
+
+/create-skill called '/sp.s' that does:
+
+---
+
+/sp.sync-master-spec
