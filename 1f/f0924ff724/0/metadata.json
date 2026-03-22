@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "1ff0924ff724",
+  "session_id": "4d647570-c452-4f23-9310-1ffc3a919622",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-22T18:17:16.998713Z",
+  "branch": "001-tm-1-create-task",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/rules/specify-rules.mdc",
+    "pom.xml",
+    "src/main/java/com/sdd/poc/PocApplication.java",
+    "src/test/java/com/sdd/poc/PocApplicationTests.java"
+  ],
+  "agent": "Cursor",
+  "model": "default",
+  "turn_id": "6606a0dacd73",
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-22T18:17:16.963654Z",
+    "agent_lines": 6,
+    "human_added": 1537,
+    "human_modified": 16,
+    "human_removed": 0,
+    "total_committed": 1559,
+    "agent_percentage": 0.38486209108402825
+  }
+}

@@ -1,0 +1,1 @@
+/sp.specify --tm-2-get-all-tasks --jira TM-2
