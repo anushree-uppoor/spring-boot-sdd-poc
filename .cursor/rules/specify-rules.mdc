@@ -172,6 +172,7 @@ Use **`specs/<feature>/SDD-TIMELINE.md`**: append **`| phase | started_utc | com
 - H2 (file or in-memory per `application` config); relational schema via Flyway `src/main/resources/db/migration` (001-tt-1-create-task)
 - Java 17 + Spring Boot 4.x, Spring Web MVC, Spring Data JPA, Spring Validation (unchanged from TT-1 baseline) (001-tt-2-get-tasks)
 - H2 + existing Flyway `tasks` table; **no** new migrations for this feature (001-tt-2-get-tasks)
+- Java 17 + Spring Boot 4.0.x, Spring Web MVC, Spring Data JPA, Spring Validation, Flyway, H2 (001-tm-1-create-task)
 
 ## Recent Changes
 - 001-tt-1-create-task: Added Java 17 + Spring Boot 4.0.3, Spring Web MVC, Spring Data JPA, Spring Validation, Flyway, H2
