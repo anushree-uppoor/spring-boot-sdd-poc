@@ -77,6 +77,8 @@
 
 ## Requirements *(mandatory)*
 
+**Constitution compliance:** Implementation MUST satisfy `.specify/memory/constitution.md` — layered **Controller → Service → Repository**, **DTO** boundaries (no entity exposure on APIs), **Flyway-only** schema changes, and **TDD** (failing tests before production code).
+
 <!--
   ACTION REQUIRED: The content in this section represents placeholders.
   Fill them out with the right functional requirements.

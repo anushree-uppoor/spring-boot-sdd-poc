@@ -31,7 +31,14 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Per `.specify/memory/constitution.md`, confirm before proceeding:
+
+- **Layered architecture:** Design keeps **Controller → Service → Repository**; no business logic or repository access planned in controllers.
+- **DTOs:** API shapes use **Request/Response DTOs**; no exposure of JPA entities at HTTP boundaries.
+- **Schema:** Any DB change is delivered as a **Flyway** migration under `src/main/resources/db/migration` (no ad-hoc DDL as the source of truth).
+- **TDD:** Plan includes **failing tests first** for new behavior (which layers: unit / `MockMvc` / integration) before implementation tasks.
+
+If any item cannot be met, document justification in **Complexity Tracking** below.
 
 ## Project Structure
 
