@@ -1,0 +1,132 @@
+---
+alwaysApply: true
+---
+
+# Request DTO Patterns
+
+## 📌 PURPOSE
+
+Defines rules for Request DTOs used for incoming API data.
+
+---
+
+## 📂 LOCATION
+
+### DO
+
+* Place all request DTOs in:
+
+```id="r1k3lm"
+dto/request
+```
+
+---
+
+## 🟢 STRUCTURE
+
+### DO
+
+* Use simple POJO classes
+* Include only input fields
+
+### EXAMPLE
+
+```java id="5t8kza"
+public class CreateTaskRequest {
+
+    @NotBlank
+    private String title;
+
+    private String description;
+}
+```
+
+---
+
+## ❗ VALIDATION RULES
+
+### DO
+
+* Use validation annotations:
+
+  * `@NotNull`
+  * `@NotBlank`
+  * `@Size`
+* Validate all required fields
+
+### DO NOT
+
+* Do not allow invalid input
+
+---
+
+## 🔄 UPDATE DTO RULES
+
+### DO
+
+* Use optional fields for updates
+
+### EXAMPLE
+
+```java id="3w9nka"
+public class UpdateTaskRequest {
+
+    private String title;
+    private String description;
+}
+```
+
+---
+
+## ⚙️ CONTROLLER USAGE
+
+### DO
+
+* Use `@RequestBody` and `@Valid`
+
+### EXAMPLE
+
+```java id="0p2kds"
+@PostMapping
+public ResponseEntity<TaskResponse> create(
+        @Valid @RequestBody CreateTaskRequest request) {
+}
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not include business logic
+* Do not include entity references
+* Do not include response-only fields (id, createdAt)
+* Do not expose internal fields
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep DTOs small and focused
+* Use clear naming:
+
+  * CreateTaskRequest
+  * UpdateTaskRequest
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST validate inputs
+* MUST use request DTO for all POST/PUT/PATCH
+* MUST NOT expose entities
+* MUST NOT include business logic
+
+---
+
+## 🔗 REFERENCES
+
+* dto-patterns.mdc
+* validation-rules.mdc
+* controller.mdc

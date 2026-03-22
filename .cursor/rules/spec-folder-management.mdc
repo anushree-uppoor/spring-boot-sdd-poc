@@ -1,0 +1,151 @@
+---
+alwaysApply: true
+---
+
+# Spec Folder Management
+
+## 📌 PURPOSE
+
+Defines rules for managing spec folders in spec-kit.
+
+Ensures one feature = one spec folder per branch.
+
+---
+
+## 🚨 CORE RULE
+
+### 1 BRANCH = 1 SPEC FOLDER ONLY
+
+---
+
+## ⚙️ COMMAND RESPONSIBILITY
+
+### /sp.specify
+
+#### DO
+
+* Create a new spec folder
+* Check if spec already exists
+* Warn before overwriting
+
+#### DO NOT
+
+* Do not silently overwrite existing spec
+
+---
+
+### /sp.clarify
+
+#### DO
+
+* Use existing spec folder
+* Update existing `spec.md`
+
+#### DO NOT
+
+* Do not create new spec folder
+* Do not generate new feature folder
+
+---
+
+## 🔍 SPEC DETECTION LOGIC
+
+### DO
+
+* Check for existing spec folder before execution
+
+### EXAMPLE
+
+```bash id="specdetect"
+FEATURE_DIR=$(find specs/ -name "spec.md" -type f | head -1 | xargs dirname)
+
+if [ -n "$FEATURE_DIR" ]; then
+  echo "Existing spec folder found: $FEATURE_DIR"
+fi
+```
+
+---
+
+## ❗ VALIDATION RULE
+
+### IF SPEC EXISTS
+
+* `/sp.clarify` → MUST use existing spec
+* `/sp.specify` → MUST warn user
+
+---
+
+### IF SPEC DOES NOT EXIST
+
+* `/sp.clarify` → MUST FAIL
+
+### ERROR MESSAGE
+
+```id="specerror"
+No spec folder found. Please run `/sp.specify` first.
+```
+
+---
+
+## 🧾 FILE USAGE RULES
+
+### DO
+
+* `spec.md` → requirements
+* `plan.md` → implementation plan
+* `tasks.md` → actionable tasks
+
+---
+
+## 🔄 CORRECT WORKFLOW
+
+```id="correctflow"
+/sp.specify   → create spec folder  
+/sp.clarify   → update spec.md  
+/sp.plan      → update plan.md  
+/sp.tasks     → update tasks.md  
+```
+
+---
+
+## 🚫 INCORRECT WORKFLOW
+
+```id="wrongflow"
+/sp.specify   → create spec folder  
+/sp.clarify   → ❌ must NOT create new folder  
+```
+
+---
+
+## ⚠️ WHY THIS RULE EXISTS
+
+### DO
+
+* Maintain clear feature boundaries
+* Avoid duplicate spec folders
+* Keep workflow predictable
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not create multiple spec folders in one branch
+* Do not use `/sp.clarify` to create specs
+* Do not bypass spec detection
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST check for existing spec folder
+* MUST use only one spec folder per branch
+* MUST NOT create new spec in `/sp.clarify`
+* MUST fail if spec missing for clarify
+* MUST warn before overwrite in `/sp.specify`
+
+---
+
+## 🔗 REFERENCES
+
+* spec-kit workflow
+* constitution rules

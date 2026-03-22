@@ -1,0 +1,185 @@
+---
+alwaysApply: true
+---
+
+# Package Structure
+
+## 📌 PURPOSE
+
+Defines the standard package structure for the Spring Boot application.
+
+Ensures consistency, scalability, and clean architecture.
+
+---
+
+## 🧱 ROOT STRUCTURE
+
+### DO
+
+* Use base package:
+
+```id="p1x9za"
+com.example.tasktracker
+```
+
+---
+
+## 📂 PACKAGE STRUCTURE
+
+### STANDARD LAYOUT
+
+```id="0q2k9v"
+com.example.tasktracker
+  ├── controller
+  ├── service
+  ├── repository
+  ├── entity
+  ├── dto
+  │     ├── request
+  │     └── response
+  ├── exception
+  ├── config
+```
+
+---
+
+## 📦 PACKAGE RESPONSIBILITIES
+
+### controller
+
+* Handles HTTP requests
+* Calls service layer
+
+---
+
+### service
+
+* Contains business logic
+* Handles validations and rules
+
+---
+
+### repository
+
+* Handles database operations
+* Uses Spring Data JPA
+
+---
+
+### entity
+
+* JPA entities
+* Maps to database tables
+
+---
+
+### dto
+
+* API request/response objects
+* No business logic
+
+---
+
+### exception
+
+* Custom exceptions
+* Global exception handler
+
+---
+
+### config
+
+* Application configuration
+* Security, beans, etc.
+
+---
+
+## 🔄 LAYER DEPENDENCY RULES
+
+### ALLOWED FLOW
+
+```id="4n7bcs"
+Controller → Service → Repository → Database
+```
+
+---
+
+### DO NOT
+
+* Controller → Repository ❌
+* DTO → Repository ❌
+* Entity → Controller ❌
+
+---
+
+## 🧾 NAMING CONVENTIONS
+
+### DO
+
+* Controller: `TaskController`
+* Service: `TaskService`
+* Repository: `TaskRepository`
+* Entity: `Task`
+* DTO:
+
+  * `CreateTaskRequest`
+  * `TaskResponse`
+
+---
+
+## 📁 FILE ORGANIZATION RULES
+
+### DO
+
+* One class per file
+* Match class name with file name
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not mix layers in same package
+* Do not place DTOs in entity package
+* Do not place business logic in controller
+* Do not create unnecessary packages
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep structure flat and simple
+* Group by feature if needed (future)
+* Maintain clear separation of concerns
+
+---
+
+## 🧪 TDD STRUCTURE
+
+### DO
+
+* Mirror package structure in test folder:
+
+```id="f6z4sy"
+src/test/java/com/example/tasktracker
+```
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST follow package structure strictly
+* MUST place classes in correct layer
+* MUST NOT mix responsibilities
+* MUST use consistent naming
+* MUST follow dependency flow
+
+---
+
+## 🔗 REFERENCES
+
+* controller.mdc
+* service.mdc
+* repository.mdc
+* dto-patterns.mdc

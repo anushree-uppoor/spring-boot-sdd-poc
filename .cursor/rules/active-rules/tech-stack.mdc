@@ -1,0 +1,133 @@
+---
+alwaysApply: true
+---
+
+# Tech Stack
+
+## 📌 PURPOSE
+
+Defines the approved technology stack for the project.
+
+Ensures consistency, simplicity, and controlled dependencies.
+
+---
+
+## 🧱 BACKEND STACK
+
+### DO
+
+* Use **Spring Boot**
+* Use **Java 17+**
+
+---
+
+## 📦 FRAMEWORKS & LIBRARIES
+
+### CORE
+
+* Spring Boot Starter Web
+* Spring Boot Starter Data JPA
+* Spring Boot Starter Validation
+
+### DATABASE
+
+* H2 (in-memory database for demo)
+
+### TESTING
+
+* JUnit 5
+* Mockito
+
+---
+
+## ⚙️ BUILD TOOL
+
+### DO
+
+* Use **Maven**
+
+---
+
+## 🗄️ DATABASE
+
+### DO
+
+* Use H2 for development/demo
+* Use JPA (Hibernate)
+
+---
+
+## 🔍 CODE QUALITY TOOLS
+
+### DO
+
+* Use CodeRabbit (code review)
+* Use Semgrep (security scanning)
+
+---
+
+## 🔄 WORKFLOW TOOLS
+
+### DO
+
+* Use spec-kit for development lifecycle
+* Use Jira MCP for task tracking
+* Use entire.io for workflow management
+* Use Roam for documentation
+
+---
+
+## 📡 API STANDARDS
+
+### DO
+
+* REST APIs only
+* JSON request/response
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not introduce new frameworks
+* Do not add external libraries without necessity
+* Do not use reactive stack (WebFlux)
+* Do not use Lombok unless explicitly allowed
+* Do not use MapStruct (keep mapping simple)
+
+---
+
+## ⚙️ CONFIGURATION RULES
+
+### DO
+
+* Use `application.yml`
+* Keep configs minimal
+
+---
+
+## 🧪 TESTING STACK
+
+### DO
+
+* Use JUnit for unit tests
+* Use Mockito for mocking
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST use Spring Boot
+* MUST use JPA for persistence
+* MUST use DTO pattern
+* MUST use JUnit for tests
+* MUST NOT introduce new libraries
+* MUST keep stack minimal
+
+---
+
+## 🔗 REFERENCES
+
+* controller.mdc
+* service.mdc
+* repository.mdc
+* dto-patterns.mdc

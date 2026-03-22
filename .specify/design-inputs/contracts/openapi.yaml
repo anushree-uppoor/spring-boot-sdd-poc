@@ -1,0 +1,132 @@
+openapi: 3.0.3
+
+info:
+title: Task Tracker API
+description: |
+REST API for managing tasks.
+Spec: .specify/specs/task-tracker/spec.md
+version: 1.0.0
+contact:
+name: API Support
+
+servers:
+
+* url: http://localhost:8080/v1
+
+paths:
+
+/tasks:
+post:
+summary: Create a new task
+operationId: createTask
+requestBody:
+required: true
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/CreateTaskRequest'
+responses:
+'201':
+description: Task created
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/TaskResponse'
+'400':
+description: Validation error
+
+```
+get:
+  summary: Get all tasks
+  operationId: getTasks
+  responses:
+    '200':
+      description: List of tasks
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TaskListResponse'
+```
+
+/tasks/{id}:
+get:
+summary: Get task by ID
+operationId: getTaskById
+parameters:
+- name: id
+in: path
+required: true
+schema:
+type: integer
+responses:
+'200':
+description: Task found
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/TaskResponse'
+'404':
+description: Task not found
+
+/tasks/{id}/complete:
+put:
+summary: Mark task as completed
+operationId: completeTask
+parameters:
+- name: id
+in: path
+required: true
+schema:
+type: integer
+responses:
+'200':
+description: Task marked as completed
+content:
+application/json:
+schema:
+$ref: '#/components/schemas/TaskResponse'
+'404':
+description: Task not found
+
+components:
+
+schemas:
+
+```
+CreateTaskRequest:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      example: "Buy groceries"
+    description:
+      type: string
+      example: "Milk, Bread, Eggs"
+
+TaskResponse:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    title:
+      type: string
+    description:
+      type: string
+    status:
+      type: string
+      enum: [PENDING, COMPLETED]
+    createdAt:
+      type: string
+      format: date-time
+
+TaskListResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/components/schemas/TaskResponse'
+```

@@ -1,0 +1,162 @@
+---
+alwaysApply: true
+---
+
+# Spring Boot Controller Patterns
+
+## 📌 PURPOSE
+
+Controllers handle HTTP requests and return responses.
+
+---
+
+## 🚨 CONTRACT-FIRST (MANDATORY)
+
+### DO
+
+* Implement endpoints defined in OpenAPI:
+
+  * `design-inputs/api-contracts/task-tracker.yaml`
+* Match request/response exactly
+
+### DO NOT
+
+* Do not create endpoints without contract
+
+---
+
+## 🧱 STRUCTURE
+
+### DO
+
+* Use `@RestController`
+* Use `@RequestMapping("/v1/tasks")`
+
+### EXAMPLE
+
+```java
+@RestController
+@RequestMapping("/v1/tasks")
+public class TaskController {
+
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+}
+```
+
+---
+
+## 🔁 ENDPOINT PATTERNS
+
+```java
+GET    /tasks
+GET    /tasks/{id}
+POST   /tasks
+PUT    /tasks/{id}
+PATCH  /tasks/{id}
+DELETE /tasks/{id}
+```
+
+---
+
+## 📥 REQUEST HANDLING
+
+### DO
+
+* Use DTOs with `@RequestBody`
+* Use `@PathVariable`
+* Use `@RequestParam`
+
+### EXAMPLE
+
+```java
+@PostMapping
+public ResponseEntity<TaskResponse> create(
+        @Valid @RequestBody CreateTaskRequest request) {
+    return ResponseEntity.status(201)
+        .body(taskService.create(request));
+}
+```
+
+---
+
+## 📤 RESPONSE HANDLING
+
+### DO
+
+* Return `ResponseEntity`
+* Use correct HTTP status codes
+
+### DO NOT
+
+* Do not return entities
+
+---
+
+## ❗ VALIDATION
+
+### DO
+
+* Use `@Valid` for request DTOs
+
+---
+
+## ⚠️ ERROR HANDLING
+
+### DO
+
+* Let exceptions propagate to global handler
+
+### DO NOT
+
+* Do not use try-catch in controller
+
+---
+
+## 🚫 DO NOT RULES
+
+* No business logic
+* No DB calls
+* No entity exposure
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep controllers thin
+* Call only service layer
+* Use meaningful method names:
+
+  * createTask
+  * getTasks
+
+---
+
+## 🧪 TDD RULES
+
+### DO
+
+* Write controller tests
+* Mock service layer
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST use DTOs
+* MUST call service layer only
+* MUST NOT include business logic
+* MUST return proper HTTP responses
+
+---
+
+## 🔗 REFERENCES
+
+* api-design.mdc
+* dto-patterns.mdc
+* validation-rules.mdc

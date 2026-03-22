@@ -1,0 +1,238 @@
+---
+alwaysApply: true
+---
+
+# Exception Handling Patterns
+
+## 📌 OVERVIEW
+
+Exception handling ensures consistent, secure, and predictable API error responses.
+
+---
+
+## 🎯 GOAL
+
+* Handle all exceptions centrally
+* Return consistent error responses
+* Avoid exposing internal details
+
+---
+
+## ⚙️ GLOBAL EXCEPTION HANDLING (MANDATORY)
+
+### DO
+
+* Use `@RestControllerAdvice`
+* Handle all exceptions in one place
+
+### EXAMPLE
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneric(Exception ex, HttpServletRequest request) {
+        ErrorResponse error = new ErrorResponse(
+            500,
+            "Internal server error",
+            request.getRequestURI()
+        );
+        return ResponseEntity.status(500).body(error);
+    }
+}
+```
+
+---
+
+## 📦 ERROR RESPONSE FORMAT
+
+### DO
+
+* Use consistent structure
+
+### STANDARD RESPONSE
+
+```java
+public class ErrorResponse {
+
+    private int statusCode;
+    private String message;
+    private String path;
+    private String timestamp;
+
+    public ErrorResponse(int statusCode, String message, String path) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.path = path;
+        this.timestamp = java.time.Instant.now().toString();
+    }
+}
+```
+
+---
+
+## ❗ COMMON EXCEPTIONS
+
+### DO
+
+* Use standard exceptions:
+
+```java
+throw new IllegalArgumentException("Invalid input");
+throw new RuntimeException("Something went wrong");
+```
+
+### PREFERRED (CUSTOM)
+
+```java
+throw new ResourceNotFoundException("Task not found");
+throw new BadRequestException("Invalid request");
+```
+
+---
+
+## 🧱 CUSTOM EXCEPTIONS
+
+### DO
+
+* Create custom exceptions for business logic
+
+### EXAMPLE
+
+```java
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
+```
+
+---
+
+## 🔄 HANDLE SPECIFIC EXCEPTIONS
+
+### DO
+
+* Handle known exceptions explicitly
+
+### EXAMPLE
+
+```java
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<ErrorResponse> handleNotFound(
+        ResourceNotFoundException ex,
+        HttpServletRequest request) {
+
+    ErrorResponse error = new ErrorResponse(
+        404,
+        ex.getMessage(),
+        request.getRequestURI()
+    );
+
+    return ResponseEntity.status(404).body(error);
+}
+```
+
+---
+
+## 🧾 VALIDATION EXCEPTIONS
+
+### DO
+
+* Handle validation errors from `@Valid`
+
+### EXAMPLE
+
+```java
+@ExceptionHandler(MethodArgumentNotValidException.class)
+public ResponseEntity<Map<String, String>> handleValidation(
+        MethodArgumentNotValidException ex) {
+
+    Map<String, String> errors = new HashMap<>();
+
+    ex.getBindingResult().getFieldErrors().forEach(error ->
+        errors.put(error.getField(), error.getDefaultMessage())
+    );
+
+    return ResponseEntity.badRequest().body(errors);
+}
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not handle exceptions inside controllers
+* Do not return stack traces
+* Do not expose internal error messages
+* Do not use generic error responses without structure
+
+---
+
+## ⚙️ SERVICE LAYER RULES
+
+### DO
+
+* Throw exceptions from service layer
+* Handle business logic errors here
+
+### DO NOT
+
+* Do not catch exceptions unless necessary
+
+---
+
+## 🧪 TDD RULES FOR EXCEPTIONS
+
+### DO
+
+* Write tests for failure cases
+* Verify correct exception is thrown
+
+### EXAMPLE
+
+```java
+@Test
+void shouldThrowNotFoundWhenTaskMissing() {
+    when(repository.findById(1L)).thenReturn(Optional.empty());
+
+    assertThrows(ResourceNotFoundException.class,
+        () -> service.getTask(1L));
+}
+```
+
+---
+
+## 📊 STATUS CODE MAPPING
+
+### DO
+
+* Map exceptions to HTTP status:
+
+* 400 → BadRequestException
+
+* 404 → ResourceNotFoundException
+
+* 409 → ConflictException
+
+* 500 → Generic Exception
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST use global exception handler
+* MUST return structured error response
+* MUST NOT expose stack traces
+* MUST throw exceptions from service layer
+* MUST handle validation errors
+
+---
+
+## 🔗 REFERENCES
+
+* api-design.mdc
+* validation-rules.mdc
+* service.mdc
+

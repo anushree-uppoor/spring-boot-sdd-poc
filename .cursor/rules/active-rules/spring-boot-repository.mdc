@@ -1,0 +1,86 @@
+---
+alwaysApply: true
+---
+
+# Spring Boot Repository Patterns
+
+## 📌 PURPOSE
+
+Repository layer handles database operations.
+
+---
+
+## 🧱 STRUCTURE
+
+### DO
+
+* Use Spring Data JPA
+* Extend `JpaRepository`
+
+### EXAMPLE
+
+```java
+@Repository
+public interface TaskRepository extends JpaRepository<Task, Long> {
+}
+```
+
+---
+
+## ⚙️ RESPONSIBILITIES
+
+### DO
+
+* Perform CRUD operations
+* Query database
+
+---
+
+## 🔍 CUSTOM QUERIES
+
+### DO
+
+* Use method naming:
+
+```java
+findByStatus(String status)
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* No business logic
+* No DTO usage
+* No validation logic
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep repository simple
+* Use JPA conventions
+
+---
+
+## 🧪 TESTING
+
+### DO
+
+* Use integration tests for repository
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST only handle persistence
+* MUST NOT include business logic
+* MUST use JPA
+
+---
+
+## 🔗 REFERENCES
+
+* service.mdc

@@ -1,0 +1,177 @@
+---
+alwaysApply: true
+---
+
+# Specify Rules
+## 📌 PURPOSE
+
+Defines rules for creating and managing specifications using spec-kit.
+
+Ensures consistent, simple, and structured feature development.
+
+---
+
+## 🚨 CORE PRINCIPLE
+
+### SPEC-FIRST DEVELOPMENT (MANDATORY)
+
+* Every feature MUST start with `/sp.specify`
+* No implementation without specification
+
+---
+
+## ⚙️ SPEC CREATION RULES
+
+### DO
+
+* Use `/sp.specify` to create new feature
+* Create spec inside:
+
+```id="specpath"
+specs/<feature-name>/
+```
+
+* Generate:
+
+  * `spec.md`
+  * `plan.md`
+  * `tasks.md`
+
+---
+
+## 🧾 SPEC CONTENT RULES
+
+### MUST INCLUDE
+
+* User stories (simple & clear)
+* Acceptance criteria
+* Description
+* Scope (in/out)
+
+---
+
+## 🧠 USER STORY FORMAT
+
+### DO
+
+Use EAR + CRTF format:
+
+* **E** → Expectation
+
+* **A** → Action
+
+* **R** → Result
+
+* **C** → Context
+
+* **R** → Requirement
+
+* **T** → Trigger
+
+* **F** → Flow
+
+---
+
+## 🔄 SPEC-KIT WORKFLOW
+
+### DO
+
+Follow strict order:
+
+```id="specflow"
+/sp.specify
+/sp.clarify
+/sp.plan
+/sp.tasks
+/sp.implement
+/sp.review
+```
+
+---
+
+## ❗ VALIDATION RULES
+
+### DO
+
+* Ensure only ONE spec folder per branch
+* Follow `spec-folder-management.mdc`
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not implement without spec
+* Do not skip `/sp.specify`
+* Do not create multiple specs per branch
+* Do not write vague requirements
+
+---
+
+## ⚙️ SIMPLICITY RULE (IMPORTANT)
+
+### DO
+
+* Keep features small
+* Keep user stories minimal
+* Focus on demo-level scope
+
+---
+
+## 🧪 TDD ALIGNMENT
+
+### DO
+
+* Each task must be implementable via TDD
+* Tasks should map to testable units
+
+---
+
+## 📊 TASK RULES
+
+### DO
+
+* Generate tasks in `tasks.md`
+* Use checklist format:
+
+```id="taskformat"
+- [ ] T001 Implement create task API
+```
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST start with `/sp.specify`
+* MUST create spec before implementation
+* MUST follow workflow order
+* MUST generate user stories with acceptance criteria
+* MUST keep scope small
+* MUST follow spec-folder-management.mdc
+
+---
+
+## 🔗 REFERENCES
+
+* spec-folder-management.mdc
+* unit-testing-patterns.mdc
+* api-design.mdc
+
+### Roam Code MCP (optional, SDD)
+
+Configure **[Roam Code](https://github.com/Cranot/roam-code)** in Cursor MCP; then `/sp.specify`, `/sp.plan`, `/sp.tasks`, `/sp.implement`, and `/sp.analyze` may use `roam_*` tools per command docs. Optional only — never block SDD. Report `Roam MCP: …` in final summaries.
+
+
+### SDD execution time (agent-append timeline)
+
+Use **`specs/<feature>/SDD-TIMELINE.md`**: append **`| phase | started_utc | completed_utc |`** per `sp.*` run per **Option A** (re-runs add rows); template **`.specify/templates/sdd-timeline-template.md`**. `date -u +"%Y-%m-%dT%H:%M:%SZ"` for both times—not a separate automation service.
+
+<!-- MANUAL ADDITIONS END -->
+
+## Active Technologies
+- Java 17 + Spring Boot 4.0.3, Spring Web MVC, Spring Data JPA, Spring Validation, Flyway, H2 (001-tt-1-create-task)
+- H2 (file or in-memory per `application` config); relational schema via Flyway `src/main/resources/db/migration` (001-tt-1-create-task)
+- Java 17 + Spring Boot 4.x, Spring Web MVC, Spring Data JPA, Spring Validation (unchanged from TT-1 baseline) (001-tt-2-get-tasks)
+- H2 + existing Flyway `tasks` table; **no** new migrations for this feature (001-tt-2-get-tasks)
+
+## Recent Changes
+- 001-tt-1-create-task: Added Java 17 + Spring Boot 4.0.3, Spring Web MVC, Spring Data JPA, Spring Validation, Flyway, H2

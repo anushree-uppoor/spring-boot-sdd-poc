@@ -1,0 +1,121 @@
+---
+alwaysApply: true
+---
+
+# Spring Boot Service Layer Patterns
+
+## 📌 PURPOSE
+
+Service layer contains business logic.
+
+---
+
+## 🧱 STRUCTURE
+
+### DO
+
+* Use `@Service`
+* Keep logic independent of controller
+
+### EXAMPLE
+
+```java
+@Service
+public class TaskService {
+}
+```
+
+---
+
+## ⚙️ RESPONSIBILITIES
+
+### DO
+
+* Handle business logic
+* Validate business rules
+* Call repository
+* Map DTO ↔ Entity
+
+---
+
+## 🔄 DTO MAPPING
+
+### DO
+
+* Convert Request DTO → Entity
+* Convert Entity → Response DTO
+
+---
+
+## ❗ EXCEPTION HANDLING
+
+### DO
+
+* Throw exceptions for:
+
+  * Not found
+  * Invalid state
+
+### DO NOT
+
+* Do not swallow exceptions
+
+---
+
+## 🧾 BUSINESS RULES
+
+### DO
+
+* Validate domain rules
+
+### EXAMPLE
+
+```java
+if (task == null) {
+    throw new ResourceNotFoundException("Task not found");
+}
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* No HTTP logic
+* No annotations like @RequestMapping
+* No direct request handling
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep methods small
+* Use meaningful names
+* Follow single responsibility
+
+---
+
+## 🧪 TDD RULES
+
+### DO
+
+* Write unit tests for service
+* Cover edge cases
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST contain business logic
+* MUST call repository
+* MUST throw exceptions
+* MUST NOT depend on controller
+
+---
+
+## 🔗 REFERENCES
+
+* repository.mdc
+* exception-handling.mdc
+* dto-patterns.mdc

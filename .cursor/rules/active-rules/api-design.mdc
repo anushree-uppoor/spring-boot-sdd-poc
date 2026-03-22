@@ -1,0 +1,224 @@
+---
+alwaysApply: true
+---
+
+# REST API Design Patterns
+## 🚨 CONTRACT-FIRST (MANDATORY)
+
+### DO
+
+* Always implement APIs based on OpenAPI contract
+* Contract location: `design-inputs/api-contracts/task-tracker.yaml`
+* Validate request/response against contract before coding
+
+### DO NOT
+
+* Do not implement endpoints without contract
+* Do not deviate from contract
+
+---
+
+## 🌐 URL STRUCTURE
+
+### DO
+
+* Use plural nouns:
+
+  * `/tasks`
+* Use lowercase
+* Use hierarchical structure:
+
+  * `/tasks/{id}`
+
+### STANDARD PATTERNS
+
+```
+GET    /tasks              # Get all tasks
+GET    /tasks/{id}         # Get task by id
+POST   /tasks              # Create task
+PUT    /tasks/{id}         # Update task
+PATCH  /tasks/{id}         # Partial update
+DELETE /tasks/{id}         # Delete task
+```
+
+---
+
+## 🔍 QUERY PARAMETERS
+
+### DO
+
+* Filtering: `?status=COMPLETED`
+* Pagination: `?page=1&limit=10`
+* Sorting: `?sort=createdAt` or `?sort=-createdAt`
+
+### DO NOT
+
+* Do not overload endpoints with complex query logic
+
+---
+
+## 🔁 HTTP METHODS
+
+### DO
+
+* GET → read
+* POST → create
+* PUT → full update
+* PATCH → partial update
+* DELETE → remove
+
+### DO NOT
+
+* Do not misuse HTTP methods
+* Do not use POST for updates
+
+---
+
+## 📊 STATUS CODES
+
+### SUCCESS
+
+* 200 OK → GET, PUT, PATCH
+* 201 CREATED → POST
+* 204 NO CONTENT → DELETE
+
+### CLIENT ERRORS
+
+* 400 BAD REQUEST → validation errors
+* 404 NOT FOUND → resource missing
+
+### SERVER ERROR
+
+* 500 INTERNAL SERVER ERROR
+
+---
+
+## 📦 RESPONSE FORMAT
+
+### SUCCESS RESPONSE
+
+```
+{
+  "id": 1,
+  "title": "Task title",
+  "description": "Task desc",
+  "status": "PENDING",
+  "createdAt": "2026-01-01T10:00:00Z"
+}
+```
+
+---
+
+### LIST RESPONSE
+
+```
+{
+  "data": [],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 20
+  }
+}
+```
+
+---
+
+### ERROR RESPONSE
+
+```
+{
+  "statusCode": 400,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "title",
+      "message": "must not be blank"
+    }
+  ],
+  "timestamp": "2026-01-01T10:00:00Z",
+  "path": "/tasks"
+}
+```
+
+---
+
+## 🔄 VERSIONING
+
+### DO
+
+* Use URL versioning:
+
+```
+/v1/tasks
+```
+
+### DO NOT
+
+* Do not introduce breaking changes without versioning
+
+---
+
+## 🔁 IDEMPOTENCY
+
+### DO
+
+* Ensure:
+
+  * GET, PUT, PATCH, DELETE → idempotent
+
+---
+
+## 🧾 HEADERS
+
+### REQUEST
+
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+### RESPONSE
+
+```
+Content-Type: application/json
+Location: /tasks/{id}
+```
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep APIs simple
+* Validate all inputs
+* Return created resource on POST
+* Use DTOs only
+
+### DO NOT
+
+* Do not expose entities
+* Do not return stack traces
+* Do not create deeply nested responses
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST follow endpoint patterns
+* MUST use correct HTTP status codes
+* MUST validate inputs
+* MUST use DTOs
+* MUST follow OpenAPI contract
+* MUST NOT generate endpoints without spec
+
+---
+
+## 🔗 REFERENCES
+
+* dto-patterns.mdc
+* request-dto-patterns.mdc
+* response-dto-patterns.mdc
+* validation-rules.mdc
+* exception-handling.mdc

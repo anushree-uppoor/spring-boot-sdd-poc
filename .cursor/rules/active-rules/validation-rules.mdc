@@ -1,0 +1,197 @@
+---
+alwaysApply: true
+---
+
+# Validation Rules
+
+## 📌 PURPOSE
+
+Defines validation rules for all incoming API requests.
+
+Ensures data integrity, security, and consistent error handling.
+
+---
+
+## 🚨 MANDATORY VALIDATION
+
+### DO
+
+* Validate all request DTOs
+* Use validation annotations
+* Reject invalid inputs
+
+### DO NOT
+
+* Do not accept unchecked input
+* Do not validate in controller manually
+
+---
+
+## 🧾 VALIDATION ANNOTATIONS
+
+### DO
+
+Use standard annotations:
+
+* `@NotNull`
+* `@NotBlank`
+* `@Size`
+* `@Min`
+* `@Max`
+* `@Email` (if applicable)
+
+---
+
+## 🟢 REQUEST DTO VALIDATION
+
+### DO
+
+* Apply validation inside DTO
+
+### EXAMPLE
+
+```java id="val1"
+public class CreateTaskRequest {
+
+    @NotBlank(message = "Title is required")
+    private String title;
+
+    @Size(max = 255, message = "Description too long")
+    private String description;
+}
+```
+
+---
+
+## ⚙️ CONTROLLER VALIDATION
+
+### DO
+
+* Use `@Valid` in controller
+
+### EXAMPLE
+
+```java id="val2"
+@PostMapping
+public ResponseEntity<TaskResponse> create(
+        @Valid @RequestBody CreateTaskRequest request) {
+}
+```
+
+---
+
+## 🔄 UPDATE VALIDATION
+
+### DO
+
+* Keep fields optional
+* Validate only if present
+
+### EXAMPLE
+
+```java id="val3"
+public class UpdateTaskRequest {
+
+    private String title;
+
+    @Size(max = 255)
+    private String description;
+}
+```
+
+---
+
+## ⚠️ VALIDATION FAILURE HANDLING
+
+### DO
+
+* Let validation errors go to global exception handler
+
+### RESPONSE FORMAT
+
+```java id="val4"
+{
+  "statusCode": 400,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "title",
+      "message": "must not be blank"
+    }
+  ]
+}
+```
+
+---
+
+## 🧱 CUSTOM VALIDATION (OPTIONAL)
+
+### DO
+
+* Use custom validators for complex rules
+
+### EXAMPLE
+
+```java id="val5"
+@AssertTrue(message = "Invalid state")
+public boolean isValid() {
+    return title != null && !title.isEmpty();
+}
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not validate inside service unless business logic
+* Do not skip validation
+* Do not return raw validation errors
+* Do not expose internal messages
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep validation simple
+* Add clear error messages
+* Validate early (DTO level)
+
+---
+
+## 🧪 TDD RULES
+
+### DO
+
+* Write tests for validation failures
+
+### EXAMPLE
+
+```java id="val6"
+@Test
+void shouldFailWhenTitleIsBlank() throws Exception {
+    mockMvc.perform(post("/v1/tasks")
+        .content("{\"title\":\"\"}")
+        .contentType("application/json"))
+        .andExpect(status().isBadRequest());
+}
+```
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST validate all request DTOs
+* MUST use validation annotations
+* MUST use @Valid in controller
+* MUST NOT accept invalid input
+* MUST return structured validation errors
+
+---
+
+## 🔗 REFERENCES
+
+* dto-patterns.mdc
+* request-dto-patterns.mdc
+* exception-handling.mdc

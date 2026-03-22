@@ -1,0 +1,220 @@
+---
+alwaysApply: true
+---
+
+# Unit Testing Patterns
+
+## 📌 PURPOSE
+
+Defines unit testing standards using TDD (Test Driven Development).
+
+Ensures reliable, maintainable, and testable code.
+
+---
+
+## 🚨 TDD (MANDATORY)
+
+### DO
+
+Follow strict TDD cycle:
+
+```id="tddflow"
+1. Write failing test
+2. Run test (FAIL)
+3. Implement minimal code
+4. Run test (PASS)
+5. Refactor
+```
+
+### DO NOT
+
+* Do not write production code without test
+* Do not skip failing test step
+
+---
+
+## 🧱 TEST STRUCTURE
+
+### DO
+
+* Place tests in:
+
+```id="testpath"
+src/test/java/com/example/tasktracker
+```
+
+* Mirror main package structure
+
+---
+
+## ⚙️ TESTING STACK
+
+### DO
+
+* Use:
+
+  * JUnit 5
+  * Mockito
+
+---
+
+## 🧪 SERVICE TESTING (PRIMARY FOCUS)
+
+### DO
+
+* Test service layer thoroughly
+* Mock repository layer
+
+### EXAMPLE
+
+```java id="servicetest"
+@ExtendWith(MockitoExtension.class)
+class TaskServiceTest {
+
+    @Mock
+    private TaskRepository repository;
+
+    @InjectMocks
+    private TaskService service;
+
+    @Test
+    void shouldReturnTaskWhenFound() {
+        Task task = new Task(1L, "Test");
+
+        when(repository.findById(1L)).thenReturn(Optional.of(task));
+
+        TaskResponse result = service.getTask(1L);
+
+        assertNotNull(result);
+    }
+}
+```
+
+---
+
+## 🎯 TEST CASE RULES
+
+### DO
+
+* Cover:
+
+  * Success cases
+  * Failure cases
+  * Edge cases
+
+### EXAMPLES
+
+* Task found ✅
+* Task not found ❌
+* Invalid input ❌
+
+---
+
+## ❗ EXCEPTION TESTING
+
+### DO
+
+* Verify exceptions
+
+### EXAMPLE
+
+```java id="exceptiontest"
+@Test
+void shouldThrowNotFound() {
+    when(repository.findById(1L)).thenReturn(Optional.empty());
+
+    assertThrows(ResourceNotFoundException.class,
+        () -> service.getTask(1L));
+}
+```
+
+---
+
+## 🧪 CONTROLLER TESTING
+
+### DO
+
+* Use MockMvc
+* Mock service layer
+
+### EXAMPLE
+
+```java id="controllertest"
+@WebMvcTest(TaskController.class)
+class TaskControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private TaskService service;
+
+    @Test
+    void shouldReturnTasks() throws Exception {
+        mockMvc.perform(get("/v1/tasks"))
+            .andExpect(status().isOk());
+    }
+}
+```
+
+---
+
+## 🔄 NAMING CONVENTION
+
+### DO
+
+* Use clear names:
+
+```id="naming"
+shouldCreateTask
+shouldReturnTask
+shouldThrowNotFound
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not test repository directly (unit tests)
+* Do not use real database in unit tests
+* Do not write large integration-style unit tests
+* Do not skip edge cases
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep tests small and focused
+* Mock dependencies
+* Use descriptive assertions
+* One behavior per test
+
+---
+
+## 📊 COVERAGE RULES
+
+### DO
+
+* Cover all service methods
+* Cover exception paths
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST follow TDD cycle
+* MUST write test before implementation
+* MUST test service layer
+* MUST mock dependencies
+* MUST test failure scenarios
+* MUST NOT write code without tests
+
+---
+
+## 🔗 REFERENCES
+
+* service.mdc
+* controller.mdc
+* exception-handling.mdc

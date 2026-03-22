@@ -1,0 +1,142 @@
+---
+alwaysApply: true
+---
+
+# Response DTO Patterns
+
+## 📌 PURPOSE
+
+Defines rules for Response DTOs used for outgoing API responses.
+
+---
+
+## 📂 LOCATION
+
+### DO
+
+* Place all response DTOs in:
+
+```id="x4l9de"
+dto/response
+```
+
+---
+
+## 🔵 STRUCTURE
+
+### DO
+
+* Include only fields required by client
+* Keep structure flat and simple
+
+### EXAMPLE
+
+```java id="k8z3mn"
+public class TaskResponse {
+
+    private Long id;
+    private String title;
+    private String description;
+    private String status;
+}
+```
+
+---
+
+## ⚠️ DATA EXPOSURE RULES
+
+### DO
+
+* Expose only necessary data
+
+### DO NOT
+
+* Do not expose:
+
+  * Internal IDs (if sensitive)
+  * Database fields not needed
+  * Audit/internal fields
+
+---
+
+## 🔄 MAPPING RULES
+
+### DO
+
+* Map Entity → Response DTO in service layer
+
+### EXAMPLE
+
+```java id="7y2lqp"
+TaskResponse response = new TaskResponse();
+response.setId(task.getId());
+response.setTitle(task.getTitle());
+```
+
+---
+
+## 📊 COLLECTION RESPONSE
+
+### DO
+
+* Use wrapper for lists (optional but recommended)
+
+### EXAMPLE
+
+```java id="v9c8as"
+public class TaskListResponse {
+
+    private List<TaskResponse> data;
+}
+```
+
+---
+
+## 🧾 STATUS FIELD
+
+### DO
+
+* Include status where relevant
+
+### EXAMPLE
+
+```java id="d2h7qk"
+private String status;
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not return entity objects
+* Do not include sensitive fields
+* Do not include request-only fields
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep naming consistent:
+
+  * TaskResponse
+* Keep responses predictable
+* Follow API design rules
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST use response DTO for all responses
+* MUST NOT expose entities
+* MUST map in service layer
+* MUST keep response minimal
+
+---
+
+## 🔗 REFERENCES
+
+* dto-patterns.mdc
+* service.mdc
+* api-design.mdc

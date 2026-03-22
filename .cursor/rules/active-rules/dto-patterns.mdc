@@ -1,0 +1,221 @@
+---
+alwaysApply: true
+---
+
+# DTO (Data Transfer Object) Patterns
+## 📌 OVERVIEW
+
+DTOs define how data moves between client and server.
+
+### PURPOSE
+
+* Define API request/response structure
+* Validate incoming data
+* Hide internal entity structure
+* Control exposed fields
+
+---
+
+## 📂 DTO STRUCTURE
+
+### DO
+
+* Place DTOs under:
+
+```id="k1m8fz"
+dto/
+  ├── request/
+  ├── response/
+```
+
+---
+
+## 🟢 REQUEST DTO RULES
+
+### DO
+
+* Use for all incoming API data
+* Apply validation annotations:
+
+  * `@NotNull`
+  * `@NotBlank`
+  * `@Size`
+* Keep only required fields
+
+### EXAMPLE
+
+```java
+public class CreateTaskRequest {
+
+    @NotBlank
+    private String title;
+
+    private String description;
+}
+```
+
+---
+
+## 🔵 RESPONSE DTO RULES
+
+### DO
+
+* Use for all API responses
+* Return only required fields
+* Include identifiers and status
+
+### DO NOT
+
+* Do not expose internal entity fields
+
+### EXAMPLE
+
+```java
+public class TaskResponse {
+
+    private Long id;
+    private String title;
+    private String status;
+}
+```
+
+---
+
+## ⚠️ ENTITY VS DTO
+
+### DO
+
+* Convert Entity → Response DTO
+* Convert Request DTO → Entity
+
+### DO NOT
+
+* Do not expose Entity directly in controller
+
+---
+
+## 🔄 MAPPING RULES
+
+### DO
+
+* Map DTOs in service layer
+* Use manual mapping or mapper class
+
+### EXAMPLE
+
+```java
+Task task = new Task();
+task.setTitle(request.getTitle());
+
+TaskResponse response = new TaskResponse();
+response.setId(task.getId());
+```
+
+---
+
+## 🔁 UPDATE DTO (PARTIAL)
+
+### DO
+
+* Use optional fields for updates
+
+### EXAMPLE
+
+```java
+public class UpdateTaskRequest {
+
+    private String title;
+    private String description;
+}
+```
+
+---
+
+## 🧾 VALIDATION RULES
+
+### DO
+
+* Validate all request DTOs
+* Use `@Valid` in controller
+
+### EXAMPLE
+
+```java
+@PostMapping
+public ResponseEntity<TaskResponse> create(@Valid @RequestBody CreateTaskRequest request) {
+```
+
+---
+
+## 🧱 NESTED DTOS
+
+### DO
+
+* Use nested DTOs only when required
+* Keep structure simple
+
+### DO NOT
+
+* Avoid deep nesting
+
+---
+
+## 📊 PAGINATION DTO
+
+### DO
+
+* Use standard pagination request
+
+### EXAMPLE
+
+```java
+public class PaginationRequest {
+    private int page = 1;
+    private int limit = 10;
+}
+```
+
+---
+
+## 🚫 DO NOT RULES
+
+* Do not use Entity in API
+* Do not add business logic in DTO
+* Do not use `Map<String, Object>`
+* Do not expose sensitive fields
+
+---
+
+## ⚙️ BEST PRACTICES
+
+### DO
+
+* Keep DTOs small and focused
+* Use separate DTOs for request and response
+* Keep naming consistent:
+
+  * `CreateTaskRequest`
+  * `TaskResponse`
+
+### DO NOT
+
+* Do not reuse same DTO for request and response
+
+---
+
+## 🧠 AI ENFORCEMENT RULES
+
+* MUST use DTOs for all APIs
+* MUST validate request DTOs
+* MUST NOT expose entities
+* MUST separate request and response DTOs
+* MUST map DTOs in service layer
+
+---
+
+## 🔗 REFERENCES
+
+* api-design.mdc
+* validation-rules.mdc
+* service.mdc
+* controller.mdc
