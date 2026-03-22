@@ -3,7 +3,7 @@
   "checkpoint_id": "1ff0924ff724",
   "strategy": "manual-commit",
   "branch": "001-tm-1-create-task",
-  "checkpoints_count": 8,
+  "checkpoints_count": 1,
   "files_touched": [
     ".cursor/rules/specify-rules.mdc",
     ".gitignore",
@@ -51,7 +51,7 @@
       "metadata": "/1f/f0924ff724/1/metadata.json",
       "transcript": "/1f/f0924ff724/1/full.jsonl",
       "content_hash": "/1f/f0924ff724/1/content_hash.txt",
-      "prompt": "/1f/f0924ff724/1/prompt.txt"
+      "prompt": ""
     }
   ]
 }
