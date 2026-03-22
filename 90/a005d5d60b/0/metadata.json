@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "90a005d5d60b",
+  "session_id": "b591661f-9892-4665-8abb-3c69cda872bc",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-22T17:36:16.292834Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".specify/memory/constitution.md",
+    ".specify/templates/plan-template.md",
+    ".specify/templates/spec-template.md",
+    ".specify/templates/tasks-template.md",
+    "history/prompts/constitution/0001-constitution-layered-dto-flyway-tdd.constitution.prompt.md"
+  ],
+  "agent": "Cursor",
+  "model": "default",
+  "turn_id": "f5c854cf4724",
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-22T17:36:16.275764Z",
+    "agent_lines": 140,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 140,
+    "agent_percentage": 100
+  }
+}

@@ -1,0 +1,15 @@
+/sp.constitution Layered Architecture
+MUST follow Controller → Service → Repository; no business logic in controllers
+DTO Enforcement
+MUST NOT expose JPA entities via APIs; MUST use Request/Response DTOs
+Database Management
+MUST manage schema changes via Flyway migrations only
+TDD Mandatory
+MUST follow Test → Fail → Implement → Refactor; no code without testsLayered Architecture
+MUST follow Controller → Service → Repository; no business logic in controllers
+DTO Enforcement
+MUST NOT expose JPA entities via APIs; MUST use Request/Response DTOs
+Database Management
+MUST manage schema changes via Flyway migrations only
+TDD Mandatory
+MUST follow Test → Fail → Implement → Refactor; no code without tests

@@ -1,0 +1,22 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "90a005d5d60b",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".specify/memory/constitution.md",
+    ".specify/templates/plan-template.md",
+    ".specify/templates/spec-template.md",
+    ".specify/templates/tasks-template.md",
+    "history/prompts/constitution/0001-constitution-layered-dto-flyway-tdd.constitution.prompt.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/90/a005d5d60b/0/metadata.json",
+      "transcript": "/90/a005d5d60b/0/full.jsonl",
+      "content_hash": "/90/a005d5d60b/0/content_hash.txt",
+      "prompt": "/90/a005d5d60b/0/prompt.txt"
+    }
+  ]
+}
